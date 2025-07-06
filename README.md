@@ -9,11 +9,11 @@ A powerful Python script that automatically transcribes audio files using OpenAI
 - 📊 **Progress Tracking**: Real-time progress bar showing transcription status
 - 📝 **Comprehensive Reports**: Generates detailed transcription reports with timestamps
 - 🔧 **Error Handling**: Robust error handling with detailed logging
-- 📱 **WhatsApp Compatible**: Optimized for WhatsApp voice message formats
-
+- 
 ## Requirements
 
 - Python 3.7 or higher
+- **FFmpeg** (required for audio processing)
 - Internet connection (for initial model download)
 - Sufficient disk space for Whisper models
 
@@ -21,8 +21,8 @@ A powerful Python script that automatically transcribes audio files using OpenAI
 
 1. **Clone or download this repository**
    ```bash
-   git clone <repository-url>
-   cd audio-transcription-tool
+   git clone https://github.com/sachinkrpr/Voice-to-Transcript.git
+   cd Voice-to-Transcript
    ```
 
 2. **Install required dependencies**
@@ -30,10 +30,30 @@ A powerful Python script that automatically transcribes audio files using OpenAI
    pip install openai-whisper tqdm
    ```
 
-3. **Additional system dependencies** (if needed)
-   - On Ubuntu/Debian: `sudo apt update && sudo apt install ffmpeg`
-   - On macOS: `brew install ffmpeg`
-   - On Windows: Download FFmpeg from [official website](https://ffmpeg.org/download.html)
+3. **Install FFmpeg** (required for audio processing)
+   
+   **On Windows:**
+   - Download FFmpeg from [official website](https://ffmpeg.org/download.html)
+   - Extract and add to system PATH
+   - Or use chocolatey: `choco install ffmpeg`
+   
+   **On macOS:**
+   ```bash
+   brew install ffmpeg
+   ```
+   
+   **On Ubuntu/Debian:**
+   ```bash
+   sudo apt update && sudo apt install ffmpeg
+   ```
+   
+   **On other Linux distributions:**
+   ```bash
+   # CentOS/RHEL/Fedora
+   sudo yum install ffmpeg
+   # or
+   sudo dnf install ffmpeg
+   ```
 
 ## Usage
 
