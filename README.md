@@ -1,99 +1,157 @@
-Whisper Audio Transcription Script
-A powerful and easy-to-use Python script to batch transcribe audio files (.opus or other formats) into text using OpenAI's Whisper model.
+# Audio Transcription Tool
 
-This script automatically finds all audio files in its directory, processes them through your chosen Whisper model, and saves the complete transcription into a single, well-organized text file.
+A powerful Python script that automatically transcribes audio files using OpenAI's Whisper model. This tool is designed to process multiple audio files in a directory and generate comprehensive transcription reports.
 
-Features
-Batch Processing: Transcribe multiple audio files at once.
+## Features
 
-High-Quality Transcription: Leverages the power of OpenAI's Whisper models (from tiny to large).
+- 🎵 **Multi-file Processing**: Transcribes all `.opus` files in a directory automatically
+- 🌍 **Multi-language Support**: Configurable language detection (Hindi, English, Urdu, Spanish, etc.)
+- 📊 **Progress Tracking**: Real-time progress bar showing transcription status
+- 📝 **Comprehensive Reports**: Generates detailed transcription reports with timestamps
+- 🔧 **Error Handling**: Robust error handling with detailed logging
+- 📱 **WhatsApp Compatible**: Optimized for WhatsApp voice message formats
 
-Language Specific: Easily set the audio language for improved accuracy.
+## Requirements
 
-Simple to Use: Just place your audio files in the folder and run the script.
+- Python 3.7 or higher
+- Internet connection (for initial model download)
+- Sufficient disk space for Whisper models
 
-Organized Output: Generates a detailed report with timestamps, model details, and clear transcription for each file.
+## Installation
 
-Progress Tracking: Uses tqdm to show a live progress bar.
+1. **Clone or download this repository**
+   ```bash
+   git clone <repository-url>
+   cd audio-transcription-tool
+   ```
 
-Prerequisites
-Before you begin, ensure you have the following installed:
+2. **Install required dependencies**
+   ```bash
+   pip install openai-whisper tqdm
+   ```
 
-Python 3.7+: You can download it from python.org.
+3. **Additional system dependencies** (if needed)
+   - On Ubuntu/Debian: `sudo apt update && sudo apt install ffmpeg`
+   - On macOS: `brew install ffmpeg`
+   - On Windows: Download FFmpeg from [official website](https://ffmpeg.org/download.html)
 
-FFmpeg: Whisper requires FFmpeg to process audio files.
+## Usage
 
-On Windows (using Chocolatey):
+### Basic Usage
 
-choco install ffmpeg
+1. **Place your audio files** in the same directory as the script
+   - Currently supports `.opus` files
+   - Files can be WhatsApp voice messages or any other opus format
 
-On macOS (using Homebrew):
+2. **Configure the script** (optional)
+   - Open the script and modify these variables if needed:
+   ```python
+   MODEL_SIZE = "large"  # Options: "tiny", "base", "small", "medium", "large"
+   LANGUAGE = "hi"       # Language code: "en", "hi", "ur", "es", etc.
+   OUTPUT_FILENAME = "transcription_output.txt"
+   ```
 
-brew install ffmpeg
+3. **Run the script**
+   ```bash
+   python transcribe_audio.py
+   ```
 
-On Linux (using apt):
+### Configuration Options
 
-sudo apt update && sudo apt install ffmpeg
+| Parameter | Description | Default | Options |
+|-----------|-------------|---------|---------|
+| `MODEL_SIZE` | Whisper model size | `"large"` | `"tiny"`, `"base"`, `"small"`, `"medium"`, `"large"` |
+| `LANGUAGE` | Target language | `"hi"` | `"en"`, `"hi"`, `"ur"`, `"es"`, `"fr"`, etc. |
+| `OUTPUT_FILENAME` | Output file name | `"transcription_output.txt"` | Any valid filename |
 
-Installation
-Clone the repository or download the script:
-Save the Python script (e.g., transcribe.py) to a new folder on your computer.
+### Model Size Guide
 
-Install the required Python libraries:
-Open your terminal or command prompt, navigate to the script's directory, and run the following command:
+| Model | Size | Speed | Accuracy |
+|-------|------|-------|----------|
+| tiny | 37 MB | Fastest | Basic |
+| base | 142 MB | Fast | Good |
+| small | 244 MB | Medium | Better |
+| medium | 769 MB | Slow | Great |
+| large | 1550 MB | Slowest | Best |
 
-pip install openai-whisper tqdm
+## Output Format
 
-How to Use
-Place Your Audio Files:
-Copy all the .opus (or other audio format) files you want to transcribe into the same folder where you saved the transcribe.py script.
+The script generates a detailed transcription report in the following format:
 
-Customize the Script (Optional):
-Open the script in a text editor and modify the configuration variables at the top of the file to suit your needs:
-
-MODEL_SIZE: Change the Whisper model. Options are tiny, base, small, medium, and large. Larger models are more accurate but require more resources and time.
-
-LANGUAGE: Set the two-letter code for the language spoken in the audio files (e.g., 'en' for English, 'es' for Spanish, 'hi' for Hindi). Set to None to let Whisper auto-detect the language.
-
-# --- CONFIGURATION ---
-MODEL_SIZE = "large"  # Or "base", "small", "medium", etc.
-LANGUAGE = "hi"       # e.g., 'en', 'es', 'fr'. Set to None for auto-detect.
-# ---------------------
-
-Run the Script:
-Navigate to the script's directory in your terminal or command prompt and execute it:
-
-python transcribe.py
-
-The script will now scan for audio files, load the Whisper model, and begin the transcription process. You will see a progress bar tracking the files.
-
-Output
-Once the script is finished, it will generate a file named transcription_output.txt in the same directory.
-
-This file contains:
-
-A header with the report generation time, model used, and language.
-
-A separate entry for each audio file, showing its name and the corresponding transcription.
-
-Error messages for any files that could not be processed.
-
-Example transcription_output.txt:
-
+```
 --- Transcription Report ---
-Generated on: 2023-10-27 14:30:00
+Generated on: 2024-01-15 14:30:25
 Model used: large
 Language: hi
 --------------------------------
 
-File: PTT-20231026-WA0001.opus
-Transcription: नमस्ते, यह एक परीक्षण ऑडियो है।
+File: voice_message_001.opus
+Transcription: आपका संदेश यहाँ होगा
 ---
 
-File: PTT-20231027-WA0002.opus
-Transcription: [ERROR] - Could not process 'PTT-20231027-WA0002.opus'.
+File: voice_message_002.opus
+Transcription: Your transcribed message will appear here
+---
+```
+
+## Language Codes
+
+Common language codes supported:
+
+- `en` - English
+- `hi` - Hindi
+- `ur` - Urdu
+- `es` - Spanish
+- `fr` - French
+- `de` - German
+- `zh` - Chinese
+- `ja` - Japanese
+- `ko` - Korean
+- `ar` - Arabic
+
+For auto-detection, set `LANGUAGE = None`
+
+## Troubleshooting
+
+### Common Issues
+
+1. **"No .opus files found"**
+   - Ensure your audio files are in the same directory as the script
+   - Check that files have the `.opus` extension
+
+2. **"Could not load the Whisper model"**
+   - Check your internet connection
+   - Ensure sufficient disk space
+   - Try using a smaller model size
+
+3. **FFmpeg errors**
+   - Install FFmpeg using the installation instructions above
+   - Ensure FFmpeg is in your system PATH
+
+4. **Out of memory errors**
+   - Use a smaller model size (`"small"` or `"medium"`)
+   - Process fewer files at once
+
+### Performance Tips
+
+- Use `"medium"` model for best balance of speed and accuracy
+- Process files in smaller batches if you have many files
+- Use SSD storage for faster processing
+- Close other applications to free up RAM
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Acknowledgments
+
+- OpenAI for the Whisper model
+- The open-source community for making this possible
+
 ---
 
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+**Note**: The first run may take longer as it downloads the required Whisper model. Subsequent runs will be faster as the model is cached locally.
